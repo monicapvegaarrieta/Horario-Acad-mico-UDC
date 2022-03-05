@@ -1,6 +1,5 @@
 package com.monica.horarioacadmicoudc
 
-import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -10,36 +9,17 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import com.monica.horarioacadmicoudc.databinding.ActivityMainBinding
+import com.monica.horarioacadmicoudc.databinding.ActivityEditProfileBinding
 
-class MainActivity : AppCompatActivity() {
+class EditProfileActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityEditProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-
-        binding.btnSubject.setOnClickListener {
-            val intent = Intent(this@MainActivity, SubjectsActivity::class.java);
-            startActivity(intent);
-        }
-        binding.btnTeachers.setOnClickListener {
-            val intent = Intent(this@MainActivity, TeachersActivity::class.java);
-            startActivity(intent);
-        }
-        binding.btnSchedule.setOnClickListener {
-            val intent = Intent(this@MainActivity, SchedulesActivity::class.java);
-            startActivity(intent);
-        }
-        binding.btnProfile.setOnClickListener {
-            val intent = Intent(this@MainActivity, EditProfileActivity::class.java);
-            startActivity(intent);
-        }
 
     }
 
