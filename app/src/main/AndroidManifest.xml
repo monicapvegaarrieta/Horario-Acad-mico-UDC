@@ -24,6 +24,8 @@
         <activity android:name=".TeachersActivity"  />
         <activity android:name=".SchedulesActivity"  />
         <activity android:name=".EditProfileActivity"  />
+        <activity android:name=".AddSubjectActivity"  />
+        <activity android:name=".AddTeacherActivity"  />
     </application>
 
 </manifest>

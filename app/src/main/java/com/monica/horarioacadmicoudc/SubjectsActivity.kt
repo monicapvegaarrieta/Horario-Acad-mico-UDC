@@ -1,5 +1,8 @@
 package com.monica.horarioacadmicoudc
 
+import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.monica.horarioacadmicoudc.databinding.ActivitySubjectsBinding
 
 class SubjectsActivity : AppCompatActivity() {
@@ -20,6 +24,36 @@ class SubjectsActivity : AppCompatActivity() {
 
         binding = ActivitySubjectsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnAdd.setOnClickListener {
+            val intent = Intent(this@SubjectsActivity, AddSubjectActivity::class.java);
+            startActivity(intent);
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val sharedPref = MainActivity.instance?.getSharedPreferences("Database", Context.MODE_PRIVATE)
+        val subjectCount = sharedPref!!.getInt("subject_count", 0)
+        var subjects = arrayListOf<SubjectItem>()
+        var index = 0;
+        while (index < subjectCount) {
+            subjects.add(SubjectItem(
+                index,
+                sharedPref.getString("subject_name_$index", ""),
+                sharedPref.getInt("subject_weekly_hours_$index",0),
+                sharedPref.getInt("subject_total_hours_$index",0),
+                sharedPref.getInt("subject_teacher_id_$index",0),
+            ))
+            index++
+        }
+
+        print(subjects)
+
+        binding.recyclerView.adapter = SubjectAdapter(subjects)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 

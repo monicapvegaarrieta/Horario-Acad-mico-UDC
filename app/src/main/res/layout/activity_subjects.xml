@@ -9,42 +9,23 @@
      <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="30dp"
         android:layout_marginHorizontal="30dp"
         >
         <Button
-            android:id="@+id/btn_subject"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="@string/subjects"
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_subject"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             />
-
-        <Button
-            android:id="@+id/btn_teachers"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="@string/teachers"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_subject"
-            />
-
-        <Button
-            android:id="@+id/btn_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="@string/week_schedule"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_teachers"
-            />
-
-        <Button
-            android:id="@+id/btn_profile"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="@string/edit_profile"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_schedule"
-        />
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/recyclerView"
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             app:layout_constraintTop_toBottomOf="@+id/btn_add"
+             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

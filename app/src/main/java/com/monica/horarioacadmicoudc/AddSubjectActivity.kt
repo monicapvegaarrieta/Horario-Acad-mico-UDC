@@ -1,6 +1,6 @@
 package com.monica.horarioacadmicoudc
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -10,42 +10,35 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import com.monica.horarioacadmicoudc.databinding.ActivityMainBinding
+import com.monica.horarioacadmicoudc.databinding.ActivityAddSubjectBinding
 
-class MainActivity : AppCompatActivity() {
+class AddSubjectActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    companion object {
-        var instance: MainActivity? = null
-    }
+    private lateinit var binding: ActivityAddSubjectBinding
+    var selectedTeacher = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        instance = this@MainActivity
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityAddSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        val sharedPref = MainActivity.instance?.getSharedPreferences("Database", Context.MODE_PRIVATE)
+        val subjectCount = sharedPref!!.getInt("subject_count", 0)
+        binding.btnAdd.setOnClickListener {
+            if (binding.txtName.text.toString() != "") {
+                with(sharedPref.edit()) {
+                    putString("subject_name_$subjectCount",binding.txtName.text.toString())
+                    putInt("subject_weekly_hour_$subjectCount",binding.txtWeeklyHour.text.toString().toInt())
+                    putInt("subject_total_hours_$subjectCount",binding.txtTotalHour.text.toString().toInt())
+                    putInt("subject_teacher_id_$subjectCount",selectedTeacher)
+                    putInt("subject_count", subjectCount + 1)
+                    apply()
+                }
 
-        binding.btnSubject.setOnClickListener {
-            val intent = Intent(this@MainActivity, SubjectsActivity::class.java);
-            startActivity(intent);
+                finish()
+            }
         }
-        binding.btnTeachers.setOnClickListener {
-            val intent = Intent(this@MainActivity, TeachersActivity::class.java);
-            startActivity(intent);
-        }
-        binding.btnSchedule.setOnClickListener {
-            val intent = Intent(this@MainActivity, SchedulesActivity::class.java);
-            startActivity(intent);
-        }
-        binding.btnProfile.setOnClickListener {
-            val intent = Intent(this@MainActivity, EditProfileActivity::class.java);
-            startActivity(intent);
-        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
